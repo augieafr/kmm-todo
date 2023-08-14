@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import kmm.augieafr.todoapp.common.todolist.TodoEvent
 import kmm.augieafr.todoapp.common.ui.model.TodoUiModel
 
 
@@ -36,7 +37,7 @@ import kmm.augieafr.todoapp.common.ui.model.TodoUiModel
 fun ToDo(
     todoModel: TodoUiModel,
     modifier: Modifier = Modifier,
-    onTodoEvent: (ToDoEvent) -> Unit
+    onTodoEvent: (TodoEvent) -> Unit
 ) {
     val cardColor: Color
     val textColor: Color
@@ -57,7 +58,7 @@ fun ToDo(
     }
 
     Card(
-        modifier = modifier.clickable { onTodoEvent.invoke(ToDoEvent.Edit(todoModel)) },
+        modifier = modifier.clickable { onTodoEvent.invoke(TodoEvent.Edit(todoModel)) },
         colors = CardDefaults.cardColors(
             containerColor = cardColor
         )
@@ -72,7 +73,7 @@ fun ToDo(
             Checkbox(
                 modifier = Modifier.size(24.dp),
                 checked = todoModel.isDone,
-                onCheckedChange = { onTodoEvent.invoke(ToDoEvent.Done(it)) })
+                onCheckedChange = { onTodoEvent.invoke(TodoEvent.Done(it)) })
             Spacer(modifier = Modifier.size(8.dp))
             Divider(
                 Modifier
@@ -96,7 +97,7 @@ fun ToDo(
                 modifier = Modifier
                     .align(Alignment.Top)
                     .clickable {
-                        onTodoEvent.invoke(ToDoEvent.Delete)
+                        onTodoEvent.invoke(TodoEvent.Delete)
                     },
                 imageVector = Icons.Default.Delete,
                 contentDescription = "Delete button",
@@ -118,13 +119,4 @@ fun ToDo(
             )
         }
     }
-}
-
-sealed class ToDoEvent {
-    object Delete : ToDoEvent()
-    class Edit(val todoUiModel: TodoUiModel) : ToDoEvent()
-    class Done(val isDone: Boolean) : ToDoEvent()
-    object Add : ToDoEvent()
-    class SaveTodo(val id: Int?, val title: String, val description: String, val dueDate: String) :
-        ToDoEvent()
 }
