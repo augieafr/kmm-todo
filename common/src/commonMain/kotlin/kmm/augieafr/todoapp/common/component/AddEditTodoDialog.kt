@@ -27,13 +27,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import kmm.augieafr.todoapp.common.todolist.TodoEvent
 import kmm.augieafr.todoapp.common.ui.model.TodoUiModel
 import kmm.augieafr.todoapp.common.ui.utils.changeDatePattern
 
 @Composable
 fun AddEditTodoDialog(
     modifier: Modifier = Modifier,
-    event: ToDoEvent,
+    event: TodoEvent,
     onDismissRequest: () -> Unit,
     onSaveClicked: (id: Int?, title: String, description: String, dueDate: String) -> Unit
 ) {
@@ -48,7 +49,7 @@ fun AddEditTodoDialog(
         ) {
 
             val todoUiModel: TodoUiModel? = when (event) {
-                is ToDoEvent.Edit -> {
+                is TodoEvent.Edit -> {
                     event.todoUiModel
                 }
 
