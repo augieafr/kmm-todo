@@ -20,7 +20,7 @@ kotlin {
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material)
-                api("org.jetbrains.compose.material3:material3:1.4.3")
+                api("org.jetbrains.compose.material3:material3:1.5.0-beta02")
             }
         }
         val commonTest by getting {
