@@ -1,16 +1,27 @@
 package kmm.augieafr.todoapp.common.ui.model
 
-import androidx.compose.ui.graphics.Color
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 
 sealed class TodoDeadline(val timeLeft: String) {
-    companion object {
-        private const val BACKGROUND_COLOR = 1
-        private const val ON_BACKGROUND_COLOR = 2
-    }
+    @Composable
+    @ReadOnlyComposable
+    fun getBackgroundColor() =
+        when (this) {
+            is FAR -> MaterialTheme.colorScheme.secondaryContainer
+            is MID -> MaterialTheme.colorScheme.tertiaryContainer
+            is NEAR -> MaterialTheme.colorScheme.errorContainer
+        }
 
-    fun getBackgroundColor() = getDeadlineColor(this, BACKGROUND_COLOR)
+    @Composable
+    fun getOnBackgroundColor() =
+        when (this) {
+            is FAR -> MaterialTheme.colorScheme.onSecondaryContainer
+            is MID -> MaterialTheme.colorScheme.onTertiaryContainer
+            is NEAR -> MaterialTheme.colorScheme.onErrorContainer
+        }
 
-    fun getOnBackgroundColor() = getDeadlineColor(this, ON_BACKGROUND_COLOR)
 
     // due date still one week or more
     class FAR(timeLeft: String) : TodoDeadline(timeLeft)
@@ -21,5 +32,3 @@ sealed class TodoDeadline(val timeLeft: String) {
     // due date less than three days
     class NEAR(timeLeft: String) : TodoDeadline(timeLeft)
 }
-
-expect fun getDeadlineColor(deadlineType: TodoDeadline, type: Int): Color

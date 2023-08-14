@@ -1,21 +1,18 @@
 package kmm.augieafr.todoapp.common
 
-import androidx.compose.material.Text
-import androidx.compose.material.Button
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import com.augieafr.todo_app.todolist.ToDoListScreen
+import kmm.augieafr.todoapp.common.theme.TODOAppTheme
+import kmm.augieafr.todoapp.common.todolist.TodoListViewModel
 
 @Composable
 fun App() {
-    var text by remember { mutableStateOf("Hello, World!") }
-    val platformName = getPlatformName()
-
-    Button(onClick = {
-        text = "Hello, ${platformName}"
-    }) {
-        Text(text)
+    TODOAppTheme {
+        ToDoListScreen(
+            modifier = Modifier.fillMaxSize(),
+            viewModel = TodoListViewModel()
+        )
     }
 }
