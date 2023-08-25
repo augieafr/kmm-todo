@@ -1,0 +1,17 @@
+import kotlin.Boolean;
+
+CREATE TABLE Todo (
+    id INTEGER PRIMARY KEY NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    due_date TEXT NOT NULL,
+    is_done INTEGER AS Boolean DEFAULT 0
+);
+
+insertTodo:
+INSERT OR REPLACE INTO Todo(id, title, description, due_date, is_done)
+VALUES (id, title, description, due_date, is_done);
+
+getTodos:
+SELECT Todo.*
+FROM Todo;

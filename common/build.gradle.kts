@@ -1,9 +1,8 @@
-import org.jetbrains.compose.compose
-
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
+    id("app.cash.sqldelight") version "2.0.0"
 }
 
 group = "kmm.augieafr.todoapp"
@@ -32,6 +31,7 @@ kotlin {
             dependencies {
                 api("androidx.appcompat:appcompat:1.5.1")
                 api("androidx.core:core-ktx:1.9.0")
+                implementation("app.cash.sqldelight:android-driver:2.0.0")
             }
         }
         val androidTest by getting {
@@ -42,6 +42,7 @@ kotlin {
         val desktopMain by getting {
             dependencies {
                 api(compose.preview)
+                implementation("app.cash.sqldelight:sqlite-driver:2.0.0")
             }
         }
         val desktopTest by getting
@@ -58,5 +59,13 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+    }
+}
+
+sqldelight {
+    databases {
+        create("TodoDatabase") {
+            packageName.set("kmm.augieafr")
+        }
     }
 }
