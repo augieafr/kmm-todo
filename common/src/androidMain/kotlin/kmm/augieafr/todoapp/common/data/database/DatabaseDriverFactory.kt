@@ -1,4 +1,4 @@
-package kmm.augieafr.database
+package kmm.augieafr.todoapp.common.data.database
 
 import android.content.Context
 import app.cash.sqldelight.db.SqlDriver
