@@ -1,17 +1,21 @@
 package kmm.augieafr.todoapp.common.data.repository
 
 import kmm.augieafr.todoapp.common.data.database.TodoDatabase
-import kmm.augieafr.todoapp.common.data.model.TodoModel
+import kmm.augieafr.todoapp.common.data.mapper.toTodoEntity
+import kmm.augieafr.todoapp.common.data.mapper.toTodoUiModel
+import kmm.augieafr.todoapp.common.ui.model.TodoUiModel
 
 internal class TodoRepository(database: TodoDatabase) {
     private val query = database.dbQuery
 
-    fun getAllTodos() = query.getTodos().executeAsList()
+    fun getAllTodos() = query.getTodos().executeAsList().map {
+        it.toTodoUiModel()
+    }
 
-    fun addEditTodo(todoModel: TodoModel, isEdit: Boolean) {
-        with(todoModel) {
+    fun addEditTodo(todoUiModel: TodoUiModel, isEdit: Boolean) {
+        with(todoUiModel.toTodoEntity()) {
             query.insertTodo(
-                id = if (isEdit) todoModel.id else null,
+                id = if (isEdit) id else null,
                 title = title,
                 description = description,
                 dueDate = dueDate,
@@ -20,7 +24,7 @@ internal class TodoRepository(database: TodoDatabase) {
         }
     }
 
-    fun deleteTodo(id: Long) {
-        query.deleteTodo(id)
+    fun deleteTodo(id: Int) {
+        query.deleteTodo(id.toLong())
     }
 }
