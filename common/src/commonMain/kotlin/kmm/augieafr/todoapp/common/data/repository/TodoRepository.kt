@@ -12,15 +12,19 @@ internal class TodoRepository(database: TodoDatabase) {
         it.toTodoUiModel()
     }
 
-    fun addEditTodo(todoUiModel: TodoUiModel, isEdit: Boolean) {
-        with(todoUiModel.toTodoEntity()) {
-            query.insertTodo(
-                id = if (isEdit) id else null,
-                title = title,
-                description = description,
-                dueDate = dueDate,
-                isDone = isDone
-            )
+    fun addEditTodo(todoUiModel: TodoUiModel, isEdit: Boolean): Long {
+        return with(todoUiModel.toTodoEntity()) {
+            query.transactionWithResult {
+                query.insertTodo(
+                    id = if (isEdit) id else null,
+                    title = title,
+                    description = description,
+                    dueDate = dueDate,
+                    isDone = isDone
+                )
+
+                query.lastInsertRowId().executeAsOne()
+            }
         }
     }
 
