@@ -5,7 +5,7 @@ CREATE TABLE Todo (
     title TEXT NOT NULL,
     description TEXT NOT NULL,
     dueDate TEXT NOT NULL,
-    isDone INTEGER AS Boolean DEFAULT 0
+    isDone INTEGER AS Boolean NOT NULL DEFAULT 0
 );
 
 insertTodo:
