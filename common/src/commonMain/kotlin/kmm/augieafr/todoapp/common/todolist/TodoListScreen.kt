@@ -1,4 +1,4 @@
-package com.augieafr.todo_app.todolist
+package kmm.augieafr.todoapp.common.todolist
 
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,8 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import kmm.augieafr.todoapp.common.component.AddEditTodoDialog
 import kmm.augieafr.todoapp.common.component.ToDo
-import kmm.augieafr.todoapp.common.todolist.TodoEvent
-import kmm.augieafr.todoapp.common.todolist.TodoListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
